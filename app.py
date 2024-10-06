@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import date
 from agents import run_eod_agent
 
-# Set the page layout for better display only
+# Set the page layout for better display
 st.set_page_config(page_title="EOD Report Generator", layout="wide")
 
 # Streamlit UI setup
@@ -12,6 +12,13 @@ st.markdown("""
     Simply fill in the details of your day, and we will handle the rest!  
     _(Fields marked with an asterisk (*) are required)_.
 """)
+
+# Dark mode toggle button
+dark_mode = st.sidebar.checkbox("🌗 Toggle Dark Mode")
+
+# Apply light/dark mode CSS dynamically
+mode = "dark-mode" if dark_mode else "light-mode"
+st.markdown(f'<div class="{mode}">', unsafe_allow_html=True)
 
 # Input section
 st.sidebar.header("📝 Input your EOD details")
@@ -27,7 +34,6 @@ if st.button("Generate EOD Report"):
         st.error("Tasks Completed is a required field.")
     else:
         with st.spinner("Generating your EOD Report..."):
-            # Pass report_date here
             result = run_eod_agent(tasks_completed, miscellaneous, report_date)
 
             # Display the result
@@ -37,28 +43,10 @@ if st.button("Generate EOD Report"):
             # Format the result for easy copy-paste in a nice text area
             st.text_area("Generated EOD Report:", result, height=300, disabled=False)
 
-# Add styling for a clean and modern interface
-st.markdown("""
-    <style>
-    .stApp {
-        background-color: #f8f9fa;
-        padding: 30px;
-    }
-    .stTextArea textarea {
-        font-family: 'Courier New', Courier, monospace;
-        background-color: #e9ecef;
-        border: 1px solid #ced4da;
-        padding: 15px;
-    }
-    .stButton button {
-        background-color: #17a2b8;
-        color: white;
-        border-radius: 5px;
-        padding: 10px 20px;
-    }
-    .stButton button:hover {
-        background-color: #138496;
-        color: white;
-    }
-    </style>
-""", unsafe_allow_html=True)
+            # Add a copy button
+            if st.button("Copy Report to Clipboard"):
+                st.write(f"<script>navigator.clipboard.writeText(`{result}`);</script>", unsafe_allow_html=True)
+                st.success("Report copied to clipboard!")
+
+# Close the dark/light mode div
+st.markdown("</div>", unsafe_allow_html=True)

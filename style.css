@@ -1,0 +1,42 @@
+/* Global Styles */
+body {
+    padding: 30px;
+}
+
+/* Light Mode Styles */
+.light-mode {
+    background-color: #f8f9fa;
+    color: black;
+}
+
+.light-mode .stTextArea textarea {
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid #ced4da;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #2e2e2e;
+    color: white;
+}
+
+.dark-mode .stTextArea textarea {
+    background-color: #424242;
+    color: white;
+    border: 1px solid #616161;
+}
+
+/* Button Styles */
+.stButton button {
+    background-color: #17a2b8;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.stButton button:hover {
+    background-color: #138496;
+}
+
