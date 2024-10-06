@@ -3,7 +3,7 @@ from crewai import Agent, Task, Crew
 from langchain_groq import ChatGroq
 from dotenv import load_dotenv
 
-# Load the environment variables from .env
+# Load the environment variables from .env file
 load_dotenv()
 api_key = os.getenv("GROQ_API_KEY")
 

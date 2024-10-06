@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import date
 from agents import run_eod_agent
 
-# Set the page layout for better display
+# Set the page layout for better display only
 st.set_page_config(page_title="EOD Report Generator", layout="wide")
 
 # Streamlit UI setup
