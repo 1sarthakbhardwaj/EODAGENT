@@ -10,7 +10,7 @@ st.title("📧 End of Day (EOD) Report Generator")
 st.markdown("""
     Welcome to the **EOD Report Generator**. This tool helps you create a structured and professional **End of Day** report with ease.
     Simply fill in the details of your day, and we will handle the rest!  
-    _(Fields marked with an asterisk (*) are required)_
+    _(Fields marked with an asterisk (*) are required)_.
 """)
 
 # Input section
@@ -27,8 +27,9 @@ if st.button("Generate EOD Report"):
         st.error("Tasks Completed is a required field.")
     else:
         with st.spinner("Generating your EOD Report..."):
+            # Pass report_date here
             result = run_eod_agent(tasks_completed, miscellaneous, report_date)
-            
+
             # Display the result
             st.success("Your EOD Report has been generated!")
             st.markdown("### 📧 Final EOD Report")
