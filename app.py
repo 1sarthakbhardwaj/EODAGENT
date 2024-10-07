@@ -17,8 +17,45 @@ st.markdown("""
 dark_mode = st.sidebar.checkbox("🌗 Toggle Dark Mode")
 
 # Apply light/dark mode CSS dynamically
-mode = "dark-mode" if dark_mode else "light-mode"
-st.markdown(f'<div class="{mode}">', unsafe_allow_html=True)
+if dark_mode:
+    page_bg_color = "#2e2e2e"
+    text_color = "#ffffff"
+    text_area_bg = "#424242"
+    button_bg = "#17a2b8"
+    button_hover_bg = "#138496"
+else:
+    page_bg_color = "#f8f9fa"
+    text_color = "#000000"
+    text_area_bg = "#ffffff"
+    button_bg = "#17a2b8"
+    button_hover_bg = "#138496"
+
+# Custom CSS to toggle light/dark mode and apply other styles
+st.markdown(f"""
+    <style>
+    .stApp {{
+        background-color: {page_bg_color};
+        color: {text_color};
+        padding: 30px;
+    }}
+    .stTextArea textarea {{
+        background-color: {text_area_bg};
+        color: {text_color};
+        border: 1px solid #ced4da;
+        padding: 15px;
+    }}
+    .stButton button {{
+        background-color: {button_bg};
+        color: white;
+        border-radius: 5px;
+        padding: 10px 20px;
+    }}
+    .stButton button:hover {{
+        background-color: {button_hover_bg};
+        color: white;
+    }}
+    </style>
+""", unsafe_allow_html=True)
 
 # Input section
 st.sidebar.header("📝 Input your EOD details")
@@ -43,10 +80,10 @@ if st.button("Generate EOD Report"):
             # Format the result for easy copy-paste in a nice text area
             st.text_area("Generated EOD Report:", result, height=300, disabled=False)
 
-            # Add a copy button
-            if st.button("Copy Report to Clipboard"):
-                st.write(f"<script>navigator.clipboard.writeText(`{result}`);</script>", unsafe_allow_html=True)
-                st.success("Report copied to clipboard!")
-
-# Close the dark/light mode div
-st.markdown("</div>", unsafe_allow_html=True)
+            # Add a copy button (Streamlit doesn't support native clipboard access, so using JavaScript)
+            st.markdown(f"""
+                <button onclick="navigator.clipboard.writeText(`{result}`)" 
+                    style="background-color:{button_bg}; color:white; border:none; padding:8px 16px; border-radius:5px; cursor:pointer">
+                    Copy Report to Clipboard
+                </button>
+            """, unsafe_allow_html=True)
